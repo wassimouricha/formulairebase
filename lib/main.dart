@@ -97,10 +97,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                     mail: _mailController.text,
                                     pseudo: _pseudoController.text,
                                   ))));
-                    } if(_passwordController.text != _passwordController2.text) {
-                       const Dialog(
-                          child: Text(
-                              "Veuillez écrire éxactement le meme mot de passe"));
+                    }
+                    if (_passwordController.text != _passwordController2.text) {
+                      showDialog(
+                        context: context,
+                        builder: (context) =>  AlertDialog(
+                          title: const Text(
+                              "Veuillez mettre exactement le meme mot de passe "),
+                              content:  const Text("S'il vous plait "),
+                              actions: [
+                                TextButton(onPressed: () => Navigator.pop(context, "cancel"), child: const Text("Cancel"),
+                                
+                                ),
+                                TextButton(onPressed: () => Navigator.pop(context, "OK"), child: const Text("OK"),
+                                
+                                ),
+                              ],
+                        ),
+                      );
                     }
                   },
                   child: const Text("Valider"),
