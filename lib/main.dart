@@ -39,6 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordController2 = TextEditingController();
 
+  _initController() {
+    _firstNameController.clear();
+    _nameController.clear();
+    _pseudoController.clear();
+    _mailController.clear();
+    _passwordController.clear();
+    _passwordController2.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,23 +105,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                     prenom: _firstNameController.text,
                                     mail: _mailController.text,
                                     pseudo: _pseudoController.text,
-                                  ))));
+                                  )))).then((value) {
+                        _initController();
+                      
+                      });
                     }
                     if (_passwordController.text != _passwordController2.text) {
                       showDialog(
                         context: context,
-                        builder: (context) =>  AlertDialog(
+                        builder: (context) => AlertDialog(
                           title: const Text(
                               "Veuillez mettre exactement le meme mot de passe "),
-                              content:  const Text("S'il vous plait "),
-                              actions: [
-                                TextButton(onPressed: () => Navigator.pop(context, "cancel"), child: const Text("Cancel"),
-                                
-                                ),
-                                TextButton(onPressed: () => Navigator.pop(context, "OK"), child: const Text("OK"),
-                                
-                                ),
-                              ],
+                          content: const Text("S'il vous plait "),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, "cancel"),
+                              child: const Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, "OK"),
+                              child: const Text("OK"),
+                            ),
+                          ],
                         ),
                       );
                     }
