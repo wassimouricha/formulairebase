@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formulairebase/recup.dart';
 
 class PageDeux extends StatelessWidget {
   const PageDeux({Key? key, required this.nom, required this.prenom, required this.mail, required this.pseudo}) : super(key: key);
@@ -27,7 +28,10 @@ class PageDeux extends StatelessWidget {
             const SizedBox(height: 20,),
             Text(mail, style: const TextStyle(color: Colors.black , fontSize: 20, fontWeight: FontWeight.w700),),
             const SizedBox(height: 20,),
-            
+            ElevatedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const RetourDonne(), ));
+             
+            }, child: const Text("utilisateur"))
           
           ]),
         ),

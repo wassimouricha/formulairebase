@@ -1,7 +1,21 @@
+// ignore_for_file: avoid_print
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:formulairebase/pagus.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyAjjTyVxm_q_Q5J0XzOuOCczZ9EGJiKsdE",
+          authDomain: "formulaire-beebe.firebaseapp.com",
+          projectId: "formulaire-beebe",
+          storageBucket: "formulaire-beebe.appspot.com",
+          messagingSenderId: "97262376468",
+          appId: "1:97262376468:web:0076d1e2c3321ed70ab901"));
+
   runApp(const MyApp());
 }
 
@@ -38,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _mailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordController2 = TextEditingController();
+  CollectionReference user = FirebaseFirestore.instance.collection('user');
 
   _initController() {
     _firstNameController.clear();
@@ -46,6 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
     _mailController.clear();
     _passwordController.clear();
     _passwordController2.clear();
+  }
+
+  Future<void> addUser() {
+    return user
+        .add({
+          'mail': _mailController.text,
+          'nom': _nameController.text,
+          'prenom': _firstNameController.text,
+          'pseudo': _pseudoController.text,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   @override
@@ -97,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_passwordController.text == _passwordController2.text) {
+                      addUser();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -107,7 +135,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                     pseudo: _pseudoController.text,
                                   )))).then((value) {
                         _initController();
-                      
                       });
                     }
                     if (_passwordController.text != _passwordController2.text) {
@@ -140,4 +167,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
+
