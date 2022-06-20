@@ -2,8 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:formulairebase/pagus.dart';
+import 'package:formulairebase/pageacc.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Formulaire wassim'),
+      home: const Accueil(),
     );
   }
 }
@@ -128,12 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => PageDeux(
-                                    nom: _nameController.text,
-                                    prenom: _firstNameController.text,
-                                    mail: _mailController.text,
-                                    pseudo: _pseudoController.text,
-                                  )))).then((value) {
+                              builder: ((context) => 
+                              
+                              // PageDeux(
+                              //       nom: _nameController.text,
+                              //       prenom: _firstNameController.text,
+                              //       mail: _mailController.text,
+                              //       pseudo: _pseudoController.text,
+                              //     )
+                                  const Accueil()
+                                  ))).then((value) {
                         _initController();
                       });
                     }
